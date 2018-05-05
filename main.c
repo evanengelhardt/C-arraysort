@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 void bubbleSort(int * pArray, int howMany);
+void quickSort(int * pArray, int start, int end);
 void swap(int *x, int *y);
 
 int main()
@@ -36,6 +37,9 @@ int main()
         case 'b' :
             bubbleSort(pArrayToSort, howMany);
             break;
+        case 'q' :
+            quickSort(pArrayToSort, 0, howMany - 1);
+            break;
         default:
             printf("No Correct Sort Chosen\n");
     }
@@ -51,6 +55,13 @@ int main()
     return 0;
 }
 
+void swap(int *x, int *y){
+    int temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
+    return;
+}
 
 void bubbleSort(int * pArray, int howMany){
     int i;
@@ -65,10 +76,35 @@ void bubbleSort(int * pArray, int howMany){
     return;
 }
 
-void swap(int *x, int *y){
-    int temp;
-    temp = *x;
-    *x = *y;
-    *y = temp;
+void quickSort(int * pArray, int start, int end){
+    if(start < end){
+        int pivot = *(pArray + end);
+        int swapPos = start-1;
+        int i;
+        for(i = start; i < end ; i++){
+            if(*(pArray + i) < pivot){
+                swapPos++;
+                swap((pArray + i), (pArray + swapPos));
+            } else {
+                continue;
+            }
+        }
+        printf("Out of loop");
+        swapPos++;
+        swap((pArray + swapPos), (pArray + i));
+        if(start < swapPos - 1){
+            quickSort(pArray, start, swapPos - 1);
+        }
+        if(swapPos + 1 < end){
+            quickSort(pArray, swapPos + 1, end);
+        }
+    }
+
     return;
 }
+
+void mergeSort(int * pArray, int start, int end){
+
+}
+
+
